@@ -1,13 +1,12 @@
-const express = require('express');
-const database = require('./database');
-const cors = require('cors');
-require('dotenv').config();
+const express = require("express");
+const database = require("./database");
+const cors = require("cors");
+require("dotenv").config();
 
-const authRouter = require('./routes/authRoutes');
-const patientRouter = require('./routes/patientRoutes');
-const doctorRouter = require('./routes/doctorRoutes');
-const messageRouter = require('./routes/messageRoute');
-
+const authRouter = require("./routes/authRoutes");
+const patientRouter = require("./routes/patientRoutes");
+const doctorRouter = require("./routes/doctorRoutes");
+const messageRouter = require("./routes/messageRoute");
 
 const app = express();
 
@@ -15,16 +14,16 @@ const start = async () => {
   await database.connect();
   app.use(cors());
   app.use(express.json());
-  app.use('/', authRouter);
-  app.use('/patient', patientRouter);
-  app.use('/doctor',doctorRouter);
-  app.use('/message',messageRouter);
-   app.get('/', (req, res) => {
-     res.send('Hello World');
-   });
-  app.listen(5000,() => {
-    console.log('app is running on port 5000');
+  app.use("/", authRouter);
+  app.use("/patient", patientRouter);
+  app.use("/doctor", doctorRouter);
+  app.use("/message", messageRouter);
+  app.get("/", (req, res) => {
+    res.send("Hello World");
   });
-}
+  app.listen(process.env.PORT || 5000, () => {
+    console.log(`app is running on port ${process.env.PORT}`);
+  });
+};
 
 start();
